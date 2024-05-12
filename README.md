@@ -1,20 +1,15 @@
-# Slack
+com.slack.Slack Flatpak manifest without extra data
+====================================================
 
-Slack is a messaging app for business that connects people to the information they need.
+This is a fork of the [com.slack.Slack Flatpak manifest](https://github.com/flathub/com.slack.Slack)
+with the extra data removed and embedded like a regular Flatpak.
 
-This repo hosts the flatpak wrapper for [Slack](https://slack.com/), available at [Flathub](https://flathub.org/apps/details/com.slack.Slack).
+The output of the build can be installed offline or packaged without any
+online dependencies.
 
-```sh
-flatpak install flathub com.slack.Slack
-flatpak run com.slack.Slack
-```
+Because Slack does not want the Electron client to be redistributed,
+Flatpak from this manifest cannot be made available publicly, but you
+can always build your own for offline installation.  This is not legal
+advice, please check with your legal counsel.
 
-### Wayland
-
-This package enables the flags to run on Wayland, however it is opt-in. To opt-in run:
-
-```sh
-flatpak override --user --socket=wayland com.slack.Slack
-```
-
-To opt-out do the same with `--nosocket=wayland`.
+[Upstream README.md](README-upstream.md)
