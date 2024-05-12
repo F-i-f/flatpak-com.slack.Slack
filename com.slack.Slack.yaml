@@ -67,7 +67,11 @@ modules:
   - name: slack
     buildsystem: simple
     build-commands:
-      - install -Dm755 apply_extra ${FLATPAK_DEST}/bin
+      - unsquashfs -quiet -no-progress slack.snap usr/lib/slack
+      - mv squashfs-root/usr/lib/slack ${FLATPAK_DEST}/slack
+      - rm -r squashfs-root slack.snap
+      - sed -i 's/WebRTCPipeWireCapturer/LebRTCPipeWireCapturer/g' ${FLATPAK_DEST}/slack/resources/app.asar
+
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
       - install -Dm644 slack.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
       - install -Dm755 slack.sh ${FLATPAK_DEST}/bin/${FLATPAK_ID}
@@ -80,12 +84,11 @@ modules:
       - desktop-file-edit --set-key="Exec" --set-value="${FLATPAK_ID} %U" ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
       - desktop-file-edit --set-key="X-Flatpak-RenamedFrom" --set-value="slack.desktop" ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
     sources:
-      - type: extra-data
-        filename: slack.snap
+      - type: file
+        dest-filename: slack.snap
         only-arches: [x86_64]
         url: https://api.snapcraft.io/api/v1/snaps/download/JUJH91Ved74jd4ZgJCpzMBtYbPOzTlsD_142.snap
         sha256: 842ab8e69c94e985ba188cc22848c0515e9fa114380adcc08572d3fb9cfa19db
-        size: 123101184
         x-checker-data:
           type: snapcraft
           name: slack
@@ -98,10 +101,3 @@ modules:
         path: slack.sh
       - type: file
         path: slack.svg
-      - type: script
-        dest-filename: apply_extra
-        commands:
-          - unsquashfs -quiet -no-progress slack.snap usr/lib/slack
-          - mv squashfs-root/usr/lib/slack/* .
-          - rm -r squashfs-root slack.snap
-          - sed -i 's/WebRTCPipeWireCapturer/LebRTCPipeWireCapturer/g' resources/app.asar
