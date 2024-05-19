@@ -70,7 +70,6 @@ modules:
       - unsquashfs -quiet -no-progress slack.snap usr/lib/slack
       - mv squashfs-root/usr/lib/slack ${FLATPAK_DEST}/slack
       - rm -r squashfs-root slack.snap
-      - sed -i 's/WebRTCPipeWireCapturer/LebRTCPipeWireCapturer/g' ${FLATPAK_DEST}/slack/resources/app.asar
 
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml
       - install -Dm644 slack.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
