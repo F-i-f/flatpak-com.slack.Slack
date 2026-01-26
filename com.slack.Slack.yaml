@@ -82,3 +82,14 @@ modules:
         path: slack.sh
       - type: file
         path: slack.svg
+cleanup:
+  - /bin/mksquashfs
+  - /bin/sqfscat
+  - /bin/sqfstar
+  - /bin/unsquashfs
+  - /lib/liblzo*
+  - /lib/debug/lib/liblzo*
+  - /lib/debug/source/lzo
+  - /lib/debug/source/squashfs-tools
+  - /share/licenses/com.slack.Slack/lzo
+  - /share/licenses/com.slack.Slack/squashfs-tools
